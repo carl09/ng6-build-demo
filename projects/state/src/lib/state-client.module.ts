@@ -8,10 +8,10 @@ import { WorkerClientService } from './services/worker-client.service';
   exports: [],
   providers: [],
 })
-export class StateLibModule {
+export class StateClientModule {
   public static forRoot(): ModuleWithProviders {
     return {
-      ngModule: StateLibModule,
+      ngModule: StateClientModule,
       providers: [WorkerClientService, StateProxyService],
     };
   }

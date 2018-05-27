@@ -1,16 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { StateWorkerModule, WorkerService } from 'state';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
+  declarations: [],
+  imports: [BrowserModule, StateWorkerModule.forRoot()],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(workerService: WorkerService) {
+    workerService.start();
+  }
+}

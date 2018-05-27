@@ -1,14 +1,43 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Webworker</title>
+  <title>Webwork</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
-  <app-root></app-root>
+  <p>Count numbers 33:
+    <output id="result"></output>
+  </p>
+  <button onclick="startWorker()">Start Worker</button>
+  <button onclick="stopWorker()">Stop Worker</button>
+
+  <script>
+    var w;
+
+    function startWorker() {
+      if (typeof (Worker) !== "undefined") {
+        if (typeof (w) == "undefined") {
+          w = new Worker("webworker.js");
+        }
+        w.onmessage = function (event) {
+          document.getElementById("result").innerHTML = event.data.val;
+        };
+      } else {
+        document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+      }
+    }
+
+    function stopWorker() {
+      w.terminate();
+      w = undefined;
+    }
+  </script>
 </body>
+
 </html>

@@ -35,7 +35,9 @@ export class WorkerClientService {
   }
 
   public send(message: IWorkerAction) {
-    this.worker.postMessage(message);
+    if (this.worker) {
+      this.worker.postMessage(message);
+    }
   }
 
   public stop() {
