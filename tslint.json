@@ -2,7 +2,11 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "extends": ["tslint:latest"],
   "rules": {
+
+    "arrow-parens": false,
+
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
