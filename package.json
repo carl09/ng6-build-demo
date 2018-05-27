@@ -7,8 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "precommit": "pretty-quick --staged"
+    "precommit": "pretty-quick --staged",
+    "builders": "tsc -p ./builders/tsconfig.json"
   },
+  "builders": "./builders/builder.json",
   "private": true,
   "dependencies": {
     "@angular/common": "^6.0.2",

@@ -1,0 +1,16 @@
+{
+  "$schema":
+    "../node_modules/@angular-devkit/architect/src/builders-schema.json",
+  "builders": {
+    "build": {
+      "schema": "./schema.json",
+      "class": "./dist/build.js",
+      "description": "Web Worker Build"
+    },
+    "serv": {
+      "schema": "./schema.json",
+      "class": "./dist/serv.js",
+      "description": "Web Worker Build"
+    }
+  }
+}

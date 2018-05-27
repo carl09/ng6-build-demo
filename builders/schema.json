@@ -1,0 +1,25 @@
+{
+  "title": "TSlint Target",
+  "description": "TSlint target options for Build Facade.",
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "string",
+      "description": "The name of the index HTML file."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Path where output will be placed."
+    },
+    "main": {
+      "type": "string",
+      "description": "The name of the main entry-point file."
+    },
+    "tsConfig": {
+      "type": "string",
+      "description": "The name of the TypeScript configuration file."
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}

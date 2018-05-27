@@ -18,13 +18,8 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -71,26 +66,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -103,51 +88,21 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": ".:build",
+          "options": {
+            "outputPath": "src/assets",
+            "index": "projects/webworker/src/index.html",
+            "main": "projects/webworker/src/main.ts",
+            "tsConfig": "projects/webworker/tsconfig.app.json"
+          }
+        },
+        "serve": {
+          "builder": ".:serv",
           "options": {
             "outputPath": "dist/webworker",
             "index": "projects/webworker/src/index.html",
             "main": "projects/webworker/src/main.ts",
-            "polyfills": "projects/webworker/src/polyfills.ts",
-            "tsConfig": "projects/webworker/tsconfig.app.json",
-            "assets": [
-              "projects/webworker/src/favicon.ico",
-              "projects/webworker/src/assets"
-            ],
-            "styles": [
-              "projects/webworker/src/styles.css"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/webworker/src/environments/environment.ts",
-                  "with": "projects/webworker/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "webworker:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "webworker:build:production"
-            }
+            "tsConfig": "projects/webworker/tsconfig.app.json"
           }
         },
         "extract-i18n": {
@@ -163,9 +118,7 @@
             "polyfills": "projects/webworker/src/polyfills.ts",
             "tsConfig": "projects/webworker/tsconfig.spec.json",
             "karmaConfig": "projects/webworker/karma.conf.js",
-            "styles": [
-              "projects/webworker/src/styles.css"
-            ],
+            "styles": ["projects/webworker/src/styles.css"],
             "scripts": [],
             "assets": [
               "projects/webworker/src/favicon.ico",
@@ -180,9 +133,7 @@
               "projects/webworker/tsconfig.app.json",
               "projects/webworker/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -220,9 +171,7 @@
               "projects/state/tsconfig.lib.json",
               "projects/state/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

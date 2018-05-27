@@ -12,4 +12,5 @@ export class AppModule {
   constructor(workerService: WorkerService) {
     workerService.start();
   }
+  ngDoBootstrap() {}
 }
