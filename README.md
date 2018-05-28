@@ -1,27 +1,64 @@
-# Ng6BuildDemo
+# Ng6 Build Demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
+This project is a play groung for NGRX, Web Workers and Custom Angular CLI builds
 
-## Development server
+There are 4 projects
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1.  **builders**: Angular CLI custom builder def
+2.  **state**: the NGRX reducers and shared library contains client and service Module
+3.  **webworker**: the web worker service project the hosts the NGRX reducers
+4.  **default**: the standard angular cli app to interact with the web worker
 
-## Code scaffolding
+## How to use
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Install dependencies
 
-## Build
+```bash
+npm install
+# or
+yarn
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Build the CLI Builders
 
-## Running unit tests
+```bash
+npm run builders
+# or
+yarn builders
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Build the State Shared Package
 
-## Running end-to-end tests
+```bash
+ng build state
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Build the Web Worker Script
 
-## Further help
+```bash
+ng build webworker
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Run The Application
+
+```bash
+ng serve
+```
+
+## Testing the Web Worker
+
+The Web Worker can be hosted in a simple html page to debug any issues with build or dev with out complexty of full angular app
+
+_(note: does not reload on index.html changes only typescript files changed)_
+
+```bash
+ng serve webworker
+```
+
+## Future Ideas
+
+* Create Better Reducer
+* Create a better UI with a form to create data for reducer
+* maybe use rollup for WebWorker Build as it does not need webpack overhead/features
+* investagate how to not have to build state package on each change
+* try reduce dependancys on web worker to reduce bundle size (still requires zone.js but no components)
