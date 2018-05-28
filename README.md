@@ -1,6 +1,6 @@
 # Ng6 Build Demo
 
-This project is a play groung for NGRX, Web Workers and Custom Angular CLI builds
+This project is a play ground for NGRX, Web Workers and Custom Angular CLI builds
 
 There are 4 projects
 
@@ -61,4 +61,4 @@ ng serve webworker
 * Create a better UI with a form to create data for reducer
 * maybe use rollup for WebWorker Build as it does not need webpack overhead/features
 * investagate how to not have to build state package on each change
-* try reduce dependancys on web worker to reduce bundle size (still requires zone.js but no components)
+* try reduce dependancys on web worker to reduce bundle size _(still requires zone.js but no components)_
