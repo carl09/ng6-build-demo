@@ -1,39 +1,19 @@
 // tslint:disable:no-implicit-dependencies
-import {
-  getSystemPath,
-  normalize,
-  Path,
-  resolve,
-  virtualFs,
-} from '@angular-devkit/core';
+import { getSystemPath, normalize, Path, resolve } from '@angular-devkit/core';
 import {
   AngularCompilerPlugin,
   AngularCompilerPluginOptions,
   PLATFORM,
 } from '@ngtools/webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as path from 'path';
+import { IBuildConfig } from 'model';
 import * as UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import { Configuration } from 'webpack';
 
-export function commonConfig(root: Path, options: any): Configuration {
+export function commonConfig(root: Path, options: IBuildConfig): Configuration {
   const tsConfigPath = getSystemPath(
     normalize(resolve(root, normalize(options.tsConfig))),
   );
-
-  // i18nInFile: undefined,
-  // i18nInFormat: undefined,
-  // locale: undefined,
-  // platform: 0,
-  // missingTranslation: undefined,
-  // sourceMap: true,
-  // additionalLazyModules: {},
-  // nameLazyFiles: true,
-  // forkTypeChecker: true,
-  // tsConfigPath: 'C:\\dev\\ngx6\\src\\tsconfig.app.json',
-  // skipCodeGeneration: true,
-  // compilerOptions: {},
-  // host: AliasHost { _delegate: NodeJsSyncHost {}, _aliases: Map {} } }
 
   const pluginOptions: AngularCompilerPluginOptions = {
     mainPath: undefined, // path.join(getSystemPath(root), builderConfig.options.main),
@@ -44,18 +24,14 @@ export function commonConfig(root: Path, options: any): Configuration {
   };
 
   const commonWebpackConfig: Configuration = {
-    mode: 'development', // 'production', // : 'development',
-    // mode: 'production',
-    devtool: 'source-map',
-    // devtool: false,
+    mode: options.prod ? 'production' : 'development',
+    devtool: options.prod ? 'none' : 'source-map',
     entry: {
-      // This is our Express server for Dynamic universal
-      // server: getSystemPath(root, builderConfig.options.main),
       webworker: getSystemPath(
         normalize(resolve(root, normalize(options.main))),
       ),
     },
-    target: 'node', // 'webworker', //
+    target: 'node',
     resolve: {
       extensions: ['.ts', '.js'],
       modules: [root, 'node_modules'],
@@ -106,13 +82,13 @@ export function commonConfig(root: Path, options: any): Configuration {
       noEmitOnErrors: true,
       minimizer: [
         new UglifyJSPlugin({
-          sourceMap: false,
+          sourceMap: !options.prod,
           parallel: true,
           cache: true,
           uglifyOptions: {
             // ecma: wco.supportES2015 ? 6 : 5,
             // warnings: !!buildOptions.verbose,
-            mangle: false,
+            mangle: options.prod,
             safari10: true,
             output: {
               beautify: true,

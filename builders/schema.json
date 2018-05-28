@@ -1,6 +1,6 @@
 {
-  "title": "TSlint Target",
-  "description": "TSlint target options for Build Facade.",
+  "title": "Web Worker Build Target",
+  "description": "Build and Serve schema for Web Workers",
   "type": "object",
   "properties": {
     "index": {
@@ -18,8 +18,13 @@
     "tsConfig": {
       "type": "string",
       "description": "The name of the TypeScript configuration file."
+    },
+    "prod": {
+      "type": "boolean",
+      "description": "is a production build",
+      "default": false
     }
   },
   "additionalProperties": false,
-  "required": []
+  "required": ["index", "outputPath", "main", "tsConfig"]
 }

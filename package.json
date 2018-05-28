@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "precommit": "pretty-quick --staged",
-    "builders": "tsc -p ./builders/tsconfig.json"
+    "builders": "tsc -p ./builders/tsconfig.json",
+    "builders:lint": "tslint --project ./builders/tsconfig.json"
   },
   "builders": "./builders/builder.json",
   "private": true,

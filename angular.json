@@ -94,6 +94,11 @@
             "index": "projects/webworker/src/index.html",
             "main": "projects/webworker/src/main.ts",
             "tsConfig": "projects/webworker/tsconfig.app.json"
+          },
+          "configurations": {
+            "production": {
+              "prod": true
+            }
           }
         },
         "serve": {
@@ -103,6 +108,11 @@
             "index": "projects/webworker/src/index.html",
             "main": "projects/webworker/src/main.ts",
             "tsConfig": "projects/webworker/tsconfig.app.json"
+          },
+          "configurations": {
+            "production": {
+              "prod": true
+            }
           }
         },
         "extract-i18n": {

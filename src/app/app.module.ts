@@ -10,5 +10,7 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(workerClientService: WorkerClientService) {}
+  constructor(workerClientService: WorkerClientService) {
+    workerClientService.start('assets/webworker.js');
+  }
 }

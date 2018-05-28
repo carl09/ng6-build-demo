@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 /builders/dist
+/src/assets/*.js
+/src/assets/*.js.map
+/src/assets/*.html
 
 # dependencies
 /node_modules
