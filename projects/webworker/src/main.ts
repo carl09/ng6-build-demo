@@ -3,5 +3,7 @@ import { AppModule } from './app/app.module';
 import './polyfills';
 
 platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+  .bootstrapModule(AppModule, {
+    ngZone: 'noop',
+  })
   .catch(err => console.log(err));
