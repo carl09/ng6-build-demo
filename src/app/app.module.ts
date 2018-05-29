@@ -12,7 +12,11 @@ import { BrowserModule } from '@angular/platform-browser';
 // tslint:disable-next-line:no-submodule-imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { StateClientModule, WorkerClientService } from 'state';
+import {
+  StateClientModule,
+  WorkerClientService,
+  WorkerSharedClientService,
+} from 'state';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { CounterComponent } from './counter/counter.component';
@@ -46,7 +50,11 @@ import { LogoffComponent } from './user/logoff/logoff.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(workerClientService: WorkerClientService) {
-    workerClientService.start('assets/webworker.js');
+  constructor(
+    workerClientService: WorkerClientService,
+    workerSharedClientService: WorkerSharedClientService,
+  ) {
+    // workerClientService.start('assets/webworker.js');
+    workerSharedClientService.start('assets/webworker.js');
   }
 }

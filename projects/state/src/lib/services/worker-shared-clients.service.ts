@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IWorkerAction, IWorkerMessage } from '../models';
 
+// declare const SharedWorker: SharedWorker.SharedWorker;
+
 @Injectable()
 export class WorkerSharedClientService {
   public listnerSubject: BehaviorSubject<IWorkerMessage>;
@@ -13,7 +15,7 @@ export class WorkerSharedClientService {
   }
 
   public start(script: string) {
-    this.worker = new SharedWorker(script);
+    this.worker = new SharedWorker(script, 'Reducer Worker');
 
     this.worker.port.addEventListener('message', message => {
       console.log('message', message);
