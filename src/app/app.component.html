@@ -1,9 +1,18 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="content">
-  <button (click)="increment()">+</button>
-  <button (click)="decrement()">-</button>
-  <button (click)="incrementAsync()">Increment Async</button>
-  <button (click)="decrementAsync()">Decrement Async</button>
-  <h3>{{counter$ | async}}</h3>
-</div>
-
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Web Workers & NGRX</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>perm_identity</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below">
+      <a mat-menu-item routerLink="user/logoff">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Sign Off</span>
+      </a>
+    </mat-menu>
+    <!-- <mat-icon class="example-icon">delete</mat-icon> -->
+    <a mat-raised-button color="accent" routerLink="user/login">Login</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

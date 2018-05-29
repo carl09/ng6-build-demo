@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IWorkerAction, IWorkerMessage } from './worker-client.service';
+import { IWorkerAction, IWorkerMessage } from '../models';
 
 declare var postMessage: (v: any) => {};
 

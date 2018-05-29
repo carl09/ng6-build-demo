@@ -106,6 +106,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/cdk@^6.1.0":
+  version "6.1.0"
+  resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/cdk/-/cdk-6.1.0.tgz#14ae46730315d40b5a642daa8f5f80815930085c"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@~6.0.3":
   version "6.0.5"
   resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/cli/-/cli-6.0.5.tgz#9b1b8459a20bd9b5166d1d84225a274a37c57bce"
@@ -165,6 +171,12 @@
 "@angular/language-service@^6.0.2":
   version "6.0.3"
   resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/language-service/-/language-service-6.0.3.tgz#7182f3824520fd5f5f6173fdee80284356d29d08"
+
+"@angular/material@^6.1.0":
+  version "6.1.0"
+  resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/material/-/material-6.1.0.tgz#c13f4fb38ae6f52c7c49cd8d3ae4baca4abd36ab"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser-dynamic@^6.0.2":
   version "6.0.3"
@@ -240,6 +252,10 @@
 "@types/node@~8.9.4":
   version "8.9.5"
   resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@types/node/-/node-8.9.5.tgz#162b864bc70be077e6db212b322754917929e976"
+
+"@types/sharedworker@0.0.27":
+  version "0.0.27"
+  resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@types/sharedworker/-/sharedworker-0.0.27.tgz#ff6499046da5316a2a6e38a1c86acfcb4ddf52ca"
 
 "@webassemblyjs/ast@1.4.3":
   version "1.4.3"
