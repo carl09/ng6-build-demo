@@ -4,6 +4,16 @@ export interface IWorkerMessage {
 }
 
 export interface IWorkerAction {
-  action: string;
+  action: ActionType;
   payload: any;
+}
+
+export type ActionType = 'reducer' | 'listen';
+
+export interface IProduct {
+  code: string;
+  name: string;
+  img: string;
+  price: number;
+  currency: string;
 }

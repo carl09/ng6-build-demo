@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { WorkerClientService } from './worker-client.service';
+import { WorkerService } from './client/worker.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,8 @@ import { WorkerClientService } from './worker-client.service';
 export class StateProxyService {
   private subs: { [id: string]: BehaviorSubject<any> } = {};
 
-  constructor(private workerClientService: WorkerClientService) {
-    this.workerClientService.listen().subscribe(x => {
+  constructor(private workerService: WorkerService) {
+    this.workerService.listen().subscribe(x => {
       console.log('StateService', x);
       if (x !== undefined && this.subs[x.reducer] !== undefined) {
         this.subs[x.reducer].next(x.payload);
@@ -23,7 +23,7 @@ export class StateProxyService {
       this.subs[path] = new BehaviorSubject<K>(undefined);
     }
 
-    this.workerClientService.send({
+    this.workerService.send({
       action: 'listen',
       payload: path,
     });
@@ -32,7 +32,7 @@ export class StateProxyService {
   }
 
   public dispatch<V extends Action = Action>(action: V): void {
-    this.workerClientService.send({
+    this.workerService.send({
       action: 'reducer',
       payload: action,
     });

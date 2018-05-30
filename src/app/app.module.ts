@@ -12,15 +12,13 @@ import { BrowserModule } from '@angular/platform-browser';
 // tslint:disable-next-line:no-submodule-imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  StateClientModule,
-  WorkerClientService,
-  WorkerSharedClientService,
-} from 'state';
+import { StateClientModule, WorkerService } from 'state';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { CounterComponent } from './counter/counter.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { AppCurrencyPipe } from './shared/app-currency.pipe';
 import { LoginComponent } from './user/login/login.component';
 import { LogoffComponent } from './user/logoff/logoff.component';
 
@@ -31,6 +29,9 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     LogoffComponent,
     LoginComponent,
     ProductListComponent,
+    ProductDetailComponent,
+
+    AppCurrencyPipe,
   ],
   imports: [
     BrowserModule,
@@ -43,18 +44,14 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     MatMenuModule,
     MatInputModule,
     MatCardModule,
-    StateClientModule.forRoot(),
+    StateClientModule.forRoot(false),
     BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    workerClientService: WorkerClientService,
-    workerSharedClientService: WorkerSharedClientService,
-  ) {
-    // workerClientService.start('assets/webworker.js');
-    workerSharedClientService.start('assets/webworker.js');
+  constructor(workerService: WorkerService) {
+    workerService.start('assets/webworker.js');
   }
 }

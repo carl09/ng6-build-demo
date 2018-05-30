@@ -1,0 +1,9 @@
+<div class="content">
+    <div *ngIf="product$ | async as product">
+        <h3>"{{ product.code }}"</h3>
+        <p>detail</p>
+        <p>
+            <button (click)="back()">Back</button>
+        </p>
+    </div>
+</div>

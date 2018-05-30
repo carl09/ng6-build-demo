@@ -190,6 +190,18 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/platform-webworker-dynamic@^6.0.3":
+  version "6.0.3"
+  resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/platform-webworker-dynamic/-/platform-webworker-dynamic-6.0.3.tgz#9066ba23f68599716271916bfa42ca8cd5761dcc"
+  dependencies:
+    tslib "^1.9.0"
+
+"@angular/platform-webworker@^6.0.3":
+  version "6.0.3"
+  resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/platform-webworker/-/platform-webworker-6.0.3.tgz#fa25c8e82c14067a0a98065f054f74db5c573b76"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/router@^6.0.2":
   version "6.0.3"
   resolved "https://nintex.pkgs.visualstudio.com/_packaging/Nintex/npm/registry/@angular/router/-/router-6.0.3.tgz#c2b63401c30788b78c90e4209cd06a653eae6428"

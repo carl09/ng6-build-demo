@@ -1,16 +1,55 @@
-.grid-container {
+$min-cell: 250px;
+$max-cell: 300px;
+$cell-spcing: 20px;
+
+.product-grid-container {
   display: grid;
-  grid-template-columns: minmax(200px, 300px) minmax(200px, 300px) minmax(
-      200px,
-      300px
-    ) minmax(200px, 300px);
+  // grid-template-columns: minmax($min-cell, 300px) minmax($min-cell, 300px) minmax($min-cell, 300px) minmax($min-cell, 300px);
+  grid-template-columns: minmax($min-cell, $max-cell);
   grid-gap: 10px;
-  // background-color: #2196F3;
   padding: 10px;
+
+  @media screen and (min-width: (($min-cell + $cell-spcing) * 2)) {
+    grid-template-columns: minmax($min-cell, $max-cell) minmax(
+        $min-cell,
+        $max-cell
+      );
+  }
+  @media screen and (min-width: (($min-cell + $cell-spcing) * 3)) {
+    grid-template-columns:
+      minmax($min-cell, $max-cell) minmax($min-cell, $max-cell)
+      minmax($min-cell, $max-cell);
+  }
+  @media screen and (min-width: (($min-cell + $cell-spcing) * 4)) {
+    grid-template-columns:
+      minmax($min-cell, $max-cell) minmax($min-cell, $max-cell)
+      minmax($min-cell, $max-cell) minmax($min-cell, $max-cell);
+  }
 }
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
+.product-grid-container > div {
   text-align: center;
   padding: 20px 0;
-  font-size: 30px;
+  text-align: left;
+}
+.product-heading {
+  font-size: 16px;
+}
+.product-price {
+  font-size: 22px;
+}
+.product-image-container {
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative;
+  /* If you want text inside of it */
+}
+.product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
 }

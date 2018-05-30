@@ -1,5 +1,12 @@
 <div class="content">
-    <div class="grid-container">
-        <div *ngFor="let p of products" class="item1">{{ p.value}}</div>
+    <div class="product-grid-container">
+        <div *ngFor="let p of products$ | async">
+            <div class="product-image-container">
+                <!-- <img [src]="p.img" class="product-image" /> -->
+                <div class="product-image" [ngStyle]="{ 'background': 'url(' + p.img +') center'}"></div>
+            </div>
+            <a class="product-heading" [routerLink]="['/products', p.code]">{{ p.name }}</a>
+            <div class="product-price">{{ p.price | appCurrency:p.currency }}</div>
+        </div>
     </div>
 </div>

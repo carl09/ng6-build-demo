@@ -1,7 +1,8 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { WorkerSharedService } from './services/client/shared-worker.service';
+import { WebWorkerService } from './services/client/web-worker.service';
+import { WorkerService } from './services/client/worker.service';
 import { StateProxyService } from './services/state-proxy.service';
-import { WorkerClientService } from './services/worker-client.service';
-import { WorkerSharedClientService } from './services/worker-shared-clients.service';
 
 @NgModule({
   imports: [],
@@ -10,12 +11,13 @@ import { WorkerSharedClientService } from './services/worker-shared-clients.serv
   providers: [],
 })
 export class StateClientModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(isWebWorker: boolean): ModuleWithProviders {
     return {
       ngModule: StateClientModule,
       providers: [
-        WorkerClientService,
-        WorkerSharedClientService,
+        isWebWorker
+          ? { provide: WorkerService, useClass: WebWorkerService }
+          : { provide: WorkerService, useClass: WorkerSharedService },
         StateProxyService,
       ],
     };
