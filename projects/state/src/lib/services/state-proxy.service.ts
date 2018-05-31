@@ -18,7 +18,7 @@ export class StateProxyService {
 
           console.log('sub:', y, sub.observers.length);
 
-          if (sub.observers.length === 0) {
+          if (sub.observers.length === 1) {
             console.log('deleting sub', y);
             sub.complete();
             delete this.subs[y];
@@ -34,8 +34,10 @@ export class StateProxyService {
       console.log('Crating Sub', path);
       this.subs[path] = new BehaviorSubject<K>(undefined);
 
-      const source = instrument(this.subs[path]);
-      const published = source.publish();
+      this.subs[path].subscribe(x => {}, null, () => console.log('unsub'));
+
+      // const source = instrument(this.subs[path]);
+      // const published = source.publish();
     }
 
     this.workerService.send({
@@ -56,6 +58,8 @@ export class StateProxyService {
   public execute<T>(method: string, ...args: any[]): Observable<T> {
     if (this.subs[method] === undefined) {
       this.subs[method] = new BehaviorSubject<T>(undefined);
+
+      this.subs[method].subscribe(x => {}, null, () => console.log('unsub'));
     }
 
     this.workerService.send({
