@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+
 export interface IWorkerMessage {
   reducer: string;
   payload: any;
@@ -9,7 +11,13 @@ export interface IWorkerAction {
   payload: any;
 }
 
-export type ActionType = 'reducer' | 'listen' | 'execute';
+export interface ISubScriptionManager {
+  action: ActionType;
+  key: string;
+  subscription?: Subscription;
+}
+
+export type ActionType = 'reducer' | 'listen' | 'execute' | 'unsubscribe';
 
 export interface IProduct {
   code: string;

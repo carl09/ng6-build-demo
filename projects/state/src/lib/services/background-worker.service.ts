@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { IWorkerAction, IWorkerMessage } from '../models';
+import { ISubScriptionManager, IWorkerAction, IWorkerMessage } from '../models';
 import { ActionProcessorService } from './worker/action-processor.service';
 import { ProductsWorkerService } from './worker/products-worker.service';
 
@@ -16,6 +16,7 @@ export class BackGroundWorkerService {
   private listnerSubject: BehaviorSubject<IWorkerMessage>;
   private ports: any[] = [];
   private worker: Worker;
+  private subs: ISubScriptionManager[] = [];
 
   constructor(
     // private actionProcessorService: ActionProcessorService,
@@ -81,18 +82,23 @@ export class BackGroundWorkerService {
   ) {
     console.log('processMessage', data);
 
+    const sub: ISubScriptionManager = {
+      action: data.action,
+      key: data.key,
+    };
+
     if (data.action === 'reducer') {
       this.store.dispatch(data.payload);
     } else if (data.action === 'listen') {
-      this.store.select(data.payload).subscribe(x => {
+      sub.subscription = this.store.select(data.payload).subscribe(x => {
         this.send({
           reducer: data.payload,
           payload: x,
         });
       });
     } else if (data.action === 'execute') {
-      this.productsService.methods[data.key](data.payload)
-        .pipe(take(1))
+      sub.subscription = this.productsService.methods[data.key](data.payload)
+        // .pipe(take(1))
         .subscribe(x => {
           console.log('process executed:', x);
           this.send({
@@ -100,6 +106,11 @@ export class BackGroundWorkerService {
             payload: x,
           });
         });
+    } else if (data.action === 'unsubscribe') {
+    }
+
+    if (sub.subscription) {
+      this.subs.push(sub);
     }
   }
 }

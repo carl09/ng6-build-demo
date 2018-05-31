@@ -13,6 +13,17 @@ export class StateProxyService {
     this.workerService.listen().subscribe(x => {
       console.log('StateProxyService', x);
       if (x !== undefined && this.subs[x.reducer] !== undefined) {
+        Object.keys(this.subs).forEach(y => {
+          const sub = this.subs[y];
+
+          console.log('sub:', y, sub.observers.length);
+
+          if (sub.observers.length === 0) {
+            console.log('deleting sub', y);
+            sub.complete();
+            delete this.subs[y];
+          }
+        });
         this.subs[x.reducer].next(x.payload);
       }
     });
@@ -20,7 +31,11 @@ export class StateProxyService {
 
   public select<K = any>(path: string): Observable<K> {
     if (this.subs[path] === undefined) {
+      console.log('Crating Sub', path);
       this.subs[path] = new BehaviorSubject<K>(undefined);
+
+      const source = instrument(this.subs[path]);
+      const published = source.publish();
     }
 
     this.workerService.send({
@@ -56,4 +71,17 @@ export class StateProxyService {
   //   'ProductService.getProductByCode',
   //   code,
   // );
+}
+
+function instrument<T>(source: Observable<T>) {
+  return new Observable<T>(observer => {
+    console.log('source: subscribing');
+    const subscription = source
+      // .do(value => console.log(`source: ${value}`))
+      .subscribe(observer);
+    return () => {
+      subscription.unsubscribe();
+      console.log('source: unsubscribed');
+    };
+  });
 }
