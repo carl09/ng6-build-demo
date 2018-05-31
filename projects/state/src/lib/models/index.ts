@@ -5,10 +5,11 @@ export interface IWorkerMessage {
 
 export interface IWorkerAction {
   action: ActionType;
+  key?: string;
   payload: any;
 }
 
-export type ActionType = 'reducer' | 'listen';
+export type ActionType = 'reducer' | 'listen' | 'execute';
 
 export interface IProduct {
   code: string;

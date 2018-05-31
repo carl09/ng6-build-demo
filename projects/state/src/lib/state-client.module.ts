@@ -1,4 +1,6 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { ProductsService } from './common/products.service';
+import { ProductsClientService } from './services/client/products-client.service';
 import { WorkerSharedService } from './services/client/shared-worker.service';
 import { WebWorkerService } from './services/client/web-worker.service';
 import { WorkerService } from './services/client/worker.service';
@@ -19,6 +21,9 @@ export class StateClientModule {
           ? { provide: WorkerService, useClass: WebWorkerService }
           : { provide: WorkerService, useClass: WorkerSharedService },
         StateProxyService,
+
+        ProductsClientService,
+        { provide: ProductsService, useExisting: ProductsClientService },
       ],
     };
   }

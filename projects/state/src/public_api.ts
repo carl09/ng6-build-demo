@@ -9,3 +9,4 @@ export * from './lib/services/client/shared-worker.service';
 export * from './lib/services/background-worker.service';
 export * from './lib/state-client.module';
 export * from './lib/state-worker.module';
+export * from './lib/common/products.service';

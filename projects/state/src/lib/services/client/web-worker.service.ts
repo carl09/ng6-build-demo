@@ -29,6 +29,7 @@ export class WebWorkerService extends WorkerService {
 
   public send(message: IWorkerAction) {
     if (this.worker) {
+      console.log('WebWorkerService.send', message);
       this.worker.postMessage(message);
     }
   }

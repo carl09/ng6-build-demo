@@ -1,9 +1,10 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { Action, ActionReducerMap, StoreModule } from '@ngrx/store';
+import { ProductsService } from './common/products.service';
 import { IState, reducers } from './reducers/reducers';
 import { BackGroundWorkerService } from './services/background-worker.service';
 import { ActionProcessorService } from './services/worker/action-processor.service';
-import { ProductsService } from './services/worker/products.service';
+import { ProductsWorkerService } from './services/worker/products-worker.service';
 
 export const REDUCERS_TOKEN = new InjectionToken<ActionReducerMap<IState>>(
   'Registered Reducers',
@@ -22,7 +23,9 @@ export class StateWorkerModule {
       providers: [
         BackGroundWorkerService,
         ActionProcessorService,
-        ProductsService,
+
+        ProductsWorkerService,
+        { provide: ProductsService, useExisting: ProductsWorkerService },
       ],
     };
   }

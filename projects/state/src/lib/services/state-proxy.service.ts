@@ -11,7 +11,7 @@ export class StateProxyService {
 
   constructor(private workerService: WorkerService) {
     this.workerService.listen().subscribe(x => {
-      console.log('StateService', x);
+      console.log('StateProxyService', x);
       if (x !== undefined && this.subs[x.reducer] !== undefined) {
         this.subs[x.reducer].next(x.payload);
       }
@@ -37,4 +37,23 @@ export class StateProxyService {
       payload: action,
     });
   }
+
+  public execute<T>(method: string, ...args: any[]): Observable<T> {
+    if (this.subs[method] === undefined) {
+      this.subs[method] = new BehaviorSubject<T>(undefined);
+    }
+
+    this.workerService.send({
+      action: 'execute',
+      key: method,
+      payload: args,
+    });
+
+    return this.subs[method].asObservable();
+  }
+
+  // return this.stateProxyService.execute<IProduct>(
+  //   'ProductService.getProductByCode',
+  //   code,
+  // );
 }

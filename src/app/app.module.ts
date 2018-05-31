@@ -44,7 +44,7 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     MatMenuModule,
     MatInputModule,
     MatCardModule,
-    StateClientModule.forRoot(false),
+    StateClientModule.forRoot(true),
     BrowserAnimationsModule,
   ],
   providers: [],
