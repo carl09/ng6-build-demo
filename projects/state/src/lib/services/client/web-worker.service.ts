@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IWorkerAction, IWorkerMessage } from '../../models';
-import { WorkerService } from './worker.service';
 import { WorkerActions } from '../../models/worker-action.model';
+import { WorkerService } from './worker.service';
 
 @Injectable()
 export class WebWorkerService extends WorkerService {

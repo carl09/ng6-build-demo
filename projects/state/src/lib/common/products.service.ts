@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IProduct, IProductSummary } from '../models/index';
+import { IProductSummary } from '../models/index';
 
 export abstract class ProductsService {
   protected readonly methodGetProductByCode = 'ProductService.getProductByCode';
@@ -14,7 +14,7 @@ export abstract class ProductsService {
     this.methods[this.methodGetProducts] = (_args: any[]) => this.getProducts();
   }
 
-  public abstract getProductByCode(code: string): Observable<IProduct>;
+  public abstract getProductByCode(code: string): Observable<IProductSummary>;
 
   public abstract getProducts(): Observable<IProductSummary[]>;
 }

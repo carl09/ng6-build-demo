@@ -2,15 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ProductsService, StateProxyService } from 'state';
-
-export interface IProductDetail {
-  code: string;
-  //   name: string;
-  //   img: string;
-  //   price: number;
-  //   currency: string;
-}
+import { IProductSummary, ProductsService, StateProxyService } from 'state';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +10,7 @@ export interface IProductDetail {
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  public product$: Observable<IProductDetail>;
+  public product$: Observable<IProductSummary>;
 
   private code: string;
 

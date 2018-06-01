@@ -10,8 +10,8 @@ export class ProductsClientService extends ProductsService {
     super();
   }
 
-  public getProductByCode(code: string): Observable<IProduct> {
-    return this.stateProxyService.execute<IProduct>(
+  public getProductByCode(code: string): Observable<IProductSummary> {
+    return this.stateProxyService.execute<IProductSummary>(
       this.methodGetProductByCode,
       code,
       code,

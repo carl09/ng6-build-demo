@@ -5,6 +5,21 @@ export interface IWorkerAction {
   action: ActionType;
 }
 
+export const createActionUnsubscribeKey = (workerActions: WorkerActions) => {
+  switch (workerActions.action) {
+    case 'listen': {
+      const d = workerActions as ListenWorkerAction;
+      return d.reducer;
+    }
+    case 'execute': {
+      const d = workerActions as ExecuteWorkerAction;
+      return `${d.key}-${d.uniqueRef}`;
+    }
+    default:
+      return '';
+  }
+};
+
 export class ReducerWorkerAction implements IWorkerAction {
   public action: ActionType = 'reducer';
   public payload: any;
@@ -37,21 +52,6 @@ export class UnsubscribeWorkerAction implements IWorkerAction {
     this.key = createActionUnsubscribeKey(workerActions);
   }
 }
-
-export const createActionUnsubscribeKey = (workerActions: WorkerActions) => {
-  switch (workerActions.action) {
-    case 'listen': {
-      const d = workerActions as ListenWorkerAction;
-      return d.reducer;
-    }
-    case 'execute': {
-      const d = workerActions as ExecuteWorkerAction;
-      return `${d.key}-${d.uniqueRef}`;
-    }
-    default:
-      return '';
-  }
-};
 
 export type ActionType = 'reducer' | 'listen' | 'execute' | 'unsubscribe';
 

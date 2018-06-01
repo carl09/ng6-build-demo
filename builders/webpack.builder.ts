@@ -1,4 +1,3 @@
-// tslint:disable:no-implicit-dependencies
 import { getSystemPath, normalize, Path, resolve } from '@angular-devkit/core';
 import {
   AngularCompilerPlugin,

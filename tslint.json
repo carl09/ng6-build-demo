@@ -4,6 +4,7 @@
   "rules": {
     "no-submodule-imports": false,
     "arrow-parens": false,
+    "no-implicit-dependencies": false,
 
     "arrow-return-shorthand": true,
     "callable-types": true,

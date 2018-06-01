@@ -1,6 +1,6 @@
 import { Action, ActionReducer } from '@ngrx/store';
 import { IUser } from '../models';
-import { DEFAULT_CURRENCY, currencyTypes } from '../models/currency.models';
+import { currencyTypes, DEFAULT_CURRENCY } from '../models/currency.models';
 import * as reducerActions from './actions';
 import { USER_SET_CURRENCY } from './actions/user.actions';
 

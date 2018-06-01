@@ -1,5 +1,3 @@
-// tslint:disable:no-implicit-dependencies
-// tslint:disable:no-submodule-imports
 import {
   Builder,
   BuilderConfiguration,

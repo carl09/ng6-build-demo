@@ -9,7 +9,6 @@ import {
   MatToolbarModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
-// tslint:disable-next-line:no-submodule-imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { StateClientModule, WorkerService } from 'state';

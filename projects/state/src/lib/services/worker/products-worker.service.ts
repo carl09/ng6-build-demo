@@ -25,10 +25,10 @@ export class ProductsWorkerService extends ProductsService {
     });
   }
 
-  public getProductByCode(code: string): Observable<IProduct> {
+  public getProductByCode(code: string): Observable<IProductSummary> {
     console.log('ProductsWorkerService.getProductByCode', code);
     return this.store.pipe(
-      select(x => x.products),
+      select(selectProductsForDisplay),
       map(x => {
         console.log('Inside reducer:', x);
         const items = x.filter(y => y.code === code);
