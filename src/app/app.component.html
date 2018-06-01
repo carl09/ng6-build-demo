@@ -3,6 +3,8 @@
     <a routerLink="products" class="site-heading">NGRX</a>
     <span class="example-spacer"></span>
 
+    <a class="site-currency-total" routerLink="cart">Total {{ cartTotal$ | async | appCurrency:selected }}</a>
+
     <mat-form-field class="site-currency-select">
       <mat-select [(value)]="selected" (selectionChange)="onSelectionChange($event)">
         <mat-option *ngFor="let c of currencies" [value]="c">

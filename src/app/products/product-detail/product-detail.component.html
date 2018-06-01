@@ -2,8 +2,14 @@
     <div *ngIf="product$ | async as product">
         <h3>"{{ product.code }}"</h3>
         <p>detail</p>
+
+        <p>
+            <button (click)="addToCart()">Add To Cart</button>
+        </p>
+
         <p>
             <button (click)="back()">Back</button>
         </p>
+
     </div>
 </div>

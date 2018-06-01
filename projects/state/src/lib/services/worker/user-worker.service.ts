@@ -19,7 +19,7 @@ const selectIsAuthencated: MemoizedSelector<IState, boolean> = createSelector(
   },
 );
 
-const selectGetCurrency: MemoizedSelector<
+export const selectGetCurrency: MemoizedSelector<
   IState,
   currencyTypes
 > = createSelector(selectUser, (user: IUser) => {

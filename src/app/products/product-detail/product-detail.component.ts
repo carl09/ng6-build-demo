@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { IProductSummary, ProductsService, StateProxyService } from 'state';
+import {
+  CartAddAction,
+  IProductSummary,
+  ProductsService,
+  StateProxyService,
+} from 'state';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,6 +34,15 @@ export class ProductDetailComponent implements OnInit {
         console.log('ProductDetailComponent', this.code);
 
         return this.productsService.getProductByCode(this.code);
+      }),
+    );
+  }
+
+  public addToCart() {
+    this.store.dispatch(
+      new CartAddAction({
+        productCode: this.code,
+        qty: 1,
       }),
     );
   }

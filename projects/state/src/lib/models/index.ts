@@ -7,6 +7,8 @@ import {
 } from './worker-action.model';
 
 export * from './worker-action.model';
+export * from './user.model';
+export * from './products.model';
 
 export interface IWorkerMessage {
   reducer: string;
@@ -22,23 +24,20 @@ export class SubScriptionManager {
   }
 }
 
-export interface IProduct {
-  code: string;
-  name: string;
-  img: string;
-  unitPrice: number;
+export interface ICartItem {
+  productCode: string;
+  qty: number;
 }
 
-export interface IProductSummary {
-  code: string;
+export interface ICart {
+  items: ICartItem[];
+}
+
+export interface ICartSummary {
+  productCode: string;
   name: string;
-  img: string;
-  price: number;
+  qty: number;
+  itemPrice: number;
+  totalPrice: number;
   currency: currencyTypes;
-}
-
-export interface IUser {
-  username?: string;
-  currency?: currencyTypes;
-  viewedProducts?: string[];
 }

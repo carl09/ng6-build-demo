@@ -15,6 +15,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StateClientModule, WorkerService } from 'state';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
+import { CartComponent } from './cart/cart.component';
 import { CounterComponent } from './counter/counter.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
@@ -30,6 +31,7 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     LoginComponent,
     ProductListComponent,
     ProductDetailComponent,
+    CartComponent,
 
     AppCurrencyPipe,
   ],

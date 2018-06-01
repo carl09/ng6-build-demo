@@ -1,6 +1,8 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { CartService } from './common/cart.service';
 import { ProductsService } from './common/products.service';
 import { UserService } from './common/user.service';
+import { CartClientService } from './services/client/cart-client.service';
 import { ProductsClientService } from './services/client/products-client.service';
 import { WorkerSharedService } from './services/client/shared-worker.service';
 import { UserClientService } from './services/client/user-client.service';
@@ -26,6 +28,7 @@ export class StateClientModule {
 
         { provide: ProductsService, useClass: ProductsClientService },
         { provide: UserService, useClass: UserClientService },
+        { provide: CartService, useClass: CartClientService },
       ],
     };
   }

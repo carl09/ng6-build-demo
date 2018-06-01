@@ -53,7 +53,7 @@ function addViewProduct(state: IUser, productCode: string): IUser {
 
   return {
     username: state.username,
-    currency: DEFAULT_CURRENCY,
+    currency: state.currency,
     viewedProducts,
   };
 }

@@ -4,6 +4,7 @@ import { ProductsService } from './common/products.service';
 import { SERVICE_WITH_INDEX } from './common/service-with-index.model';
 import { IState, reducers } from './reducers/reducers';
 import { BackGroundWorkerService } from './services/background-worker.service';
+import { CartWorkerService } from './services/worker/cart-worker.service';
 import { ProductsWorkerService } from './services/worker/products-worker.service';
 import { UserWorkerService } from './services/worker/user-worker.service';
 
@@ -32,6 +33,11 @@ export class StateWorkerModule {
         {
           provide: SERVICE_WITH_INDEX,
           useClass: UserWorkerService,
+          multi: true,
+        },
+        {
+          provide: SERVICE_WITH_INDEX,
+          useClass: CartWorkerService,
           multi: true,
         },
       ],

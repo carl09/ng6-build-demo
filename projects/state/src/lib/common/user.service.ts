@@ -21,6 +21,6 @@ export abstract class UserService implements IServiceWithIndex {
   public abstract getCurrency(): Observable<currencyTypes>;
 
   public getAvaliableCurrencys(): currencyTypes[] {
-    return ['AUD', 'USD'];
+    return ['AUD', 'USD', 'EUR', 'MYR'];
   }
 }

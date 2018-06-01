@@ -19,7 +19,7 @@ export class WebWorkerService extends WorkerService {
     this.worker = new Worker(script);
 
     this.worker.addEventListener('message', message => {
-      console.log('message', message);
+      // console.log('message', message);
       this.listnerSubject.next(message.data);
     });
   }
@@ -30,7 +30,7 @@ export class WebWorkerService extends WorkerService {
 
   public send(message: WorkerActions) {
     if (this.worker) {
-      console.log('WebWorkerService.send', message);
+      // console.log('WebWorkerService.send', message);
       this.worker.postMessage(message);
     }
   }
