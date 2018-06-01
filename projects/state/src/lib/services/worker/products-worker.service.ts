@@ -1,25 +1,16 @@
-// tslint:disable-next-line:no-submodule-imports
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { MonoTypeOperatorFunction, Observable, OperatorFunction } from 'rxjs';
-// tslint:disable-next-line:no-submodule-imports
 import { filter, map } from 'rxjs/operators';
 import { ProductsService } from '../../common/products.service';
-import { IProduct } from '../../models';
+import { IProduct, IProductSummary } from '../../models';
 import { LoadProductsAction } from '../../reducers/actions';
 import { productsReducer } from '../../reducers/products.reducer';
-import { IState } from '../../reducers/reducers';
+import { IState, selectProductsForDisplay } from '../../reducers/reducers';
 
 @Injectable()
 export class ProductsWorkerService extends ProductsService {
-  public methods: { [id: string]: (args: any[]) => Observable<any> } = {
-    'ProductService.getProductByCode': (args: any[]) => {
-      console.log('pre call method', args[0]);
-      return this.getProductByCode(args[0]);
-    },
-  };
-
   constructor(private store: Store<IState>, private http: HttpClient) {
     super();
   }
@@ -45,11 +36,8 @@ export class ProductsWorkerService extends ProductsService {
       }),
     );
   }
-}
 
-function firstItem<T>(): MonoTypeOperatorFunction<T> {
-  if (Array.isArray(this) && this.length !== 0) {
-    return this[0];
+  public getProducts(): Observable<IProductSummary[]> {
+    return this.store.pipe(select(selectProductsForDisplay));
   }
-  return undefined;
 }

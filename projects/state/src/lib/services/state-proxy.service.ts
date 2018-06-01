@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  ExecuteWorkerAction,
+  ListenWorkerAction,
+  UnsubscribeWorkerAction,
+} from '../models/worker-action.model';
 import { WorkerService } from './client/worker.service';
 
 @Injectable({
@@ -30,22 +35,22 @@ export class StateProxyService {
   }
 
   public select<K = any>(path: string): Observable<K> {
-    if (this.subs[path] === undefined) {
+    const action = new ListenWorkerAction(path);
+    const unsub = new UnsubscribeWorkerAction(action);
+
+    if (this.subs[unsub.key] === undefined) {
       console.log('Crating Sub', path);
-      this.subs[path] = new BehaviorSubject<K>(undefined);
+      this.subs[unsub.key] = new BehaviorSubject<K>(undefined);
 
-      this.subs[path].subscribe(x => {}, null, () => console.log('unsub'));
+      this.workerService.send(action);
 
-      // const source = instrument(this.subs[path]);
-      // const published = source.publish();
+      this.subs[unsub.key].subscribe(x => {}, null, () => {
+        console.log('sending unsub:', unsub);
+        this.workerService.send(unsub);
+      });
     }
 
-    this.workerService.send({
-      action: 'listen',
-      payload: path,
-    });
-
-    return this.subs[path].asObservable();
+    return this.subs[unsub.key].asObservable();
   }
 
   public dispatch<V extends Action = Action>(action: V): void {
@@ -55,26 +60,27 @@ export class StateProxyService {
     });
   }
 
-  public execute<T>(method: string, ...args: any[]): Observable<T> {
-    if (this.subs[method] === undefined) {
-      this.subs[method] = new BehaviorSubject<T>(undefined);
+  public execute<T>(
+    method: string,
+    uniqueRef: string,
+    ...args: any[]
+  ): Observable<T> {
+    const action = new ExecuteWorkerAction(method, uniqueRef, args);
+    const unsub = new UnsubscribeWorkerAction(action);
 
-      this.subs[method].subscribe(x => {}, null, () => console.log('unsub'));
+    if (this.subs[unsub.key] === undefined) {
+      this.subs[unsub.key] = new BehaviorSubject<T>(undefined);
+
+      this.workerService.send(action);
+
+      this.subs[unsub.key].subscribe(x => {}, null, () => {
+        console.log('sending unsub:', unsub);
+        this.workerService.send(unsub);
+      });
     }
 
-    this.workerService.send({
-      action: 'execute',
-      key: method,
-      payload: args,
-    });
-
-    return this.subs[method].asObservable();
+    return this.subs[unsub.key].asObservable();
   }
-
-  // return this.stateProxyService.execute<IProduct>(
-  //   'ProductService.getProductByCode',
-  //   code,
-  // );
 }
 
 function instrument<T>(source: Observable<T>) {

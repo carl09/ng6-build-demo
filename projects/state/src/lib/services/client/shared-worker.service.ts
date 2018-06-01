@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IWorkerAction, IWorkerMessage } from '../../models';
+import { IWorkerAction, IWorkerMessage, WorkerActions } from '../../models';
 import { WorkerService } from './worker.service';
 
 // declare const SharedWorker: SharedWorker.SharedWorker;
@@ -31,7 +31,7 @@ export class WorkerSharedService extends WorkerService {
     return this.listnerSubject.asObservable();
   }
 
-  public send(message: IWorkerAction) {
+  public send(message: WorkerActions) {
     if (this.worker) {
       this.worker.port.postMessage(message);
     }

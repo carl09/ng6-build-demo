@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginAction, StateProxyService } from 'state';
 
 @Component({
   selector: 'app-user-login',
@@ -10,14 +11,24 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private store: StateProxyService,
+  ) {
     this.createForm();
   }
 
   public onSubmit() {
     console.log(this.loginForm.value);
 
-    this.router.navigate(['/']);
+    this.store.dispatch(
+      new LoginAction({
+        username: this.loginForm.value['email'],
+      }),
+    );
+
+    this.router.navigate(['/products']);
   }
 
   private createForm() {

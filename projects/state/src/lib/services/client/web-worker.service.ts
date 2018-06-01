@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IWorkerAction, IWorkerMessage } from '../../models';
 import { WorkerService } from './worker.service';
+import { WorkerActions } from '../../models/worker-action.model';
 
 @Injectable()
 export class WebWorkerService extends WorkerService {
@@ -27,7 +28,7 @@ export class WebWorkerService extends WorkerService {
     return this.listnerSubject.asObservable();
   }
 
-  public send(message: IWorkerAction) {
+  public send(message: WorkerActions) {
     if (this.worker) {
       console.log('WebWorkerService.send', message);
       this.worker.postMessage(message);

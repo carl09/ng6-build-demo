@@ -10,3 +10,7 @@ export * from './lib/services/background-worker.service';
 export * from './lib/state-client.module';
 export * from './lib/state-worker.module';
 export * from './lib/common/products.service';
+
+export * from './lib/reducers/actions';
+
+export { IUser, IProductSummary } from './lib/models/index';

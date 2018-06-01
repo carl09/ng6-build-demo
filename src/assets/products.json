@@ -3,64 +3,55 @@
     "code": "chain",
     "name": "Shimano Dura Ace 9000 11 Speed Chain",
     "img": "assets/products/Dura-Ace-Chain-xtr.jpg",
-    "price": 52.68,
-    "currency": "AUD"
+    "unitPrice": 52.68
   },
   {
     "code": "chainset",
     "name": "Shimano Dura Ace R9100 Chainset",
     "img": "assets/products/Dura-Ace-R9100-Chainset.jpg",
-    "price": 537.99,
-    "currency": "AUD"
+    "unitPrice": 537.99
   },
   {
     "code": "bb",
     "name": "Hope Stainless Steel Bottom Bracket",
     "img": "assets/products/hope-sst-bb-blue.jpg",
-    "price": 136.87,
-    "currency": "AUD"
+    "unitPrice": 136.87
   },
   {
     "code": "tube",
     "name": "Vittoria Road Inner Tube",
     "img": "assets/products/vittoria-inner-tube-green.jpg",
-    "price": 4.99,
-    "currency": "AUD"
+    "unitPrice": 4.99
   },
   {
     "code": "pedals",
     "name": "Crank Brothers Mallet 2 Pedals",
     "img": "assets/products/4265-11003-thickbox.jpg",
-    "price": 124.08,
-    "currency": "AUD"
+    "unitPrice": 124.08
   },
   {
     "code": "disc",
     "name": "Hope Road Floating Disc",
     "img":
       "assets/products/Hope-Road-Floating-Disc-Internal-Blue-NotSet-HBSP3611606FB.jpg",
-    "price": 72.59,
-    "currency": "AUD"
+    "unitPrice": 72.59
   },
   {
     "code": "tyre",
     "name": "Continental Grand Prix 4000S II Tyre",
     "img": "assets/products/Continental-4000S-II-Road-Tyre.jpg",
-    "price": 51.99,
-    "currency": "AUD"
+    "unitPrice": 51.99
   },
   {
     "code": "wheels",
     "name": "Fulcrum Racing Zero C17 Clincher Wheelset",
     "img": "assets/products/Fulcrum-Racing-Zero-Wheelset.jpg",
-    "price": 1445.49,
-    "currency": "AUD"
+    "unitPrice": 1445.49
   },
   {
     "code": "garmin",
     "name": "Garmin Edge 820 GPS Cycle Computer",
     "img": "assets/products/Garmin-Edge-820.jpg",
-    "price": 527.12,
-    "currency": "AUD"
+    "unitPrice": 527.12
   }
 ]
