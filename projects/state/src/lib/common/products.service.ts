@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs';
 import { IProductSummary } from '../models/index';
+import { IServiceWithIndex } from './service-with-index.model';
 
-export abstract class ProductsService {
+export abstract class ProductsService implements IServiceWithIndex {
   protected readonly methodGetProductByCode = 'ProductService.getProductByCode';
   protected readonly methodGetProducts = 'ProductService.getProducts';
 

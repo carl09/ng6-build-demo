@@ -5,6 +5,7 @@ import {
   ExecuteWorkerAction,
   ListenWorkerAction,
   UnsubscribeWorkerAction,
+  WorkerActions,
 } from '../models/worker-action.model';
 import { WorkerService } from './client/worker.service';
 
@@ -16,15 +17,11 @@ export class StateProxyService {
 
   constructor(private workerService: WorkerService) {
     this.workerService.listen().subscribe(x => {
-      console.log('StateProxyService', x);
       if (x !== undefined && this.subs[x.reducer] !== undefined) {
         Object.keys(this.subs).forEach(y => {
           const sub = this.subs[y];
 
-          console.log('sub:', y, sub.observers.length);
-
           if (sub.observers.length === 1) {
-            console.log('deleting sub', y);
             sub.complete();
             delete this.subs[y];
           }
@@ -38,19 +35,7 @@ export class StateProxyService {
     const action = new ListenWorkerAction(path);
     const unsub = new UnsubscribeWorkerAction(action);
 
-    if (this.subs[unsub.key] === undefined) {
-      console.log('Crating Sub', path);
-      this.subs[unsub.key] = new BehaviorSubject<K>(undefined);
-
-      this.workerService.send(action);
-
-      this.subs[unsub.key].subscribe(x => {}, null, () => {
-        console.log('sending unsub:', unsub);
-        this.workerService.send(unsub);
-      });
-    }
-
-    return this.subs[unsub.key].asObservable();
+    return this.createInnerSub(action, unsub);
   }
 
   public dispatch<V extends Action = Action>(action: V): void {
@@ -68,30 +53,23 @@ export class StateProxyService {
     const action = new ExecuteWorkerAction(method, uniqueRef, args);
     const unsub = new UnsubscribeWorkerAction(action);
 
-    if (this.subs[unsub.key] === undefined) {
-      this.subs[unsub.key] = new BehaviorSubject<T>(undefined);
+    return this.createInnerSub(action, unsub);
+  }
+
+  private createInnerSub<T>(
+    action: WorkerActions,
+    unSub: UnsubscribeWorkerAction,
+  ): Observable<T> {
+    if (this.subs[unSub.key] === undefined) {
+      this.subs[unSub.key] = new BehaviorSubject<T>(undefined);
 
       this.workerService.send(action);
 
-      this.subs[unsub.key].subscribe(x => {}, null, () => {
-        console.log('sending unsub:', unsub);
-        this.workerService.send(unsub);
+      this.subs[unSub.key].subscribe(x => {}, null, () => {
+        this.workerService.send(unSub);
       });
     }
 
-    return this.subs[unsub.key].asObservable();
+    return this.subs[unSub.key].asObservable();
   }
-}
-
-function instrument<T>(source: Observable<T>) {
-  return new Observable<T>(observer => {
-    console.log('source: subscribing');
-    const subscription = source
-      // .do(value => console.log(`source: ${value}`))
-      .subscribe(observer);
-    return () => {
-      subscription.unsubscribe();
-      console.log('source: unsubscribed');
-    };
-  });
 }

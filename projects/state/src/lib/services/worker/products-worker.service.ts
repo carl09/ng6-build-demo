@@ -1,13 +1,50 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { MonoTypeOperatorFunction, Observable, OperatorFunction } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { ProductsService } from '../../common/products.service';
-import { IProduct, IProductSummary } from '../../models';
+import { IProduct, IProductSummary, IUser } from '../../models';
+import {
+  convertCurrency,
+  currencyTypes,
+  DEFAULT_CURRENCY,
+} from '../../models/currency.models';
 import { LoadProductsAction } from '../../reducers/actions';
+import { ViewedProductAction } from '../../reducers/actions/user.actions';
 import { productsReducer } from '../../reducers/products.reducer';
-import { IState, selectProductsForDisplay } from '../../reducers/reducers';
+import { IState } from '../../reducers/reducers';
+
+const selectUser = (state: IState) => state.user;
+const selectProducts = (state: IState) => state.products;
+
+const selectProductsForDisplay: MemoizedSelector<
+  IState,
+  IProductSummary[]
+> = createSelector(
+  selectUser,
+  selectProducts,
+  (user: IUser, products: IProduct[]) => {
+    const items = [];
+
+    const currency: currencyTypes = user.currency || DEFAULT_CURRENCY;
+
+    products.forEach(x => {
+      const i: IProductSummary = {
+        code: x.code,
+        name: x.name,
+        img: x.img,
+        price: convertCurrency(currency, x.unitPrice),
+        currency,
+      };
+      items.push(i);
+    });
+
+    console.log('selectProductsForDisplay', products, items);
+
+    return items;
+  },
+);
 
 @Injectable()
 export class ProductsWorkerService extends ProductsService {
@@ -33,6 +70,11 @@ export class ProductsWorkerService extends ProductsService {
         console.log('Inside reducer:', x);
         const items = x.filter(y => y.code === code);
         return items[0];
+      }),
+      tap(x => {
+        // this.store.dispatch(new ViewedProductAction({
+        //   productCode: code,
+        // }));
       }),
     );
   }

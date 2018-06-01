@@ -40,4 +40,5 @@ export interface IProductSummary {
 export interface IUser {
   username?: string;
   currency?: currencyTypes;
+  viewedProducts?: string[];
 }

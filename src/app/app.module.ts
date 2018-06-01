@@ -6,6 +6,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatSelectModule,
   MatToolbarModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -43,6 +44,8 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     MatMenuModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
+
     StateClientModule.forRoot(true),
     BrowserAnimationsModule,
   ],

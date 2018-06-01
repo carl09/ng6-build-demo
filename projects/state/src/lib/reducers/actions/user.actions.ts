@@ -5,6 +5,7 @@ import { currencyTypes } from '../../models/currency.models';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOFF = 'USER_LOGOFF';
 export const USER_SET_CURRENCY = 'USER_SET_CURRENCY';
+export const USER_VIEWED_PRODUCT = 'USER_VIEWED_PRODUCT';
 
 export interface ILoginActionPayload {
   username: string;
@@ -12,6 +13,10 @@ export interface ILoginActionPayload {
 
 export interface ISetCurrencyActionPayload {
   currency: currencyTypes;
+}
+
+export interface IViewedProductActionPayload {
+  productCode: string;
 }
 
 export class LoginAction implements Action {
@@ -29,4 +34,13 @@ export class SetCurrencyAction implements Action {
   constructor(public payload: ISetCurrencyActionPayload) {}
 }
 
-export type userActions = LoginAction | LogoffAction | SetCurrencyAction;
+export class ViewedProductAction implements Action {
+  public readonly type = USER_VIEWED_PRODUCT;
+  constructor(public payload: IViewedProductActionPayload) {}
+}
+
+export type userActions =
+  | LoginAction
+  | LogoffAction
+  | SetCurrencyAction
+  | ViewedProductAction;

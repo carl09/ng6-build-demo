@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import {
+  IServiceWithIndex,
+  SERVICE_WITH_INDEX,
+} from '../common/service-with-index.model';
 import { IWorkerAction, IWorkerMessage, SubScriptionManager } from '../models';
-import { ProductsWorkerService } from './worker/products-worker.service';
-
 import * as workerActions from '../models/worker-action.model';
-import { selectProductsForDisplay } from '../reducers/reducers';
+import { ProductsWorkerService } from './worker/products-worker.service';
 
 declare const postMessage: (v: any) => {};
 declare let onconnect: (e: any) => void;
@@ -22,6 +24,7 @@ export class BackGroundWorkerService {
 
   constructor(
     private productsService: ProductsWorkerService,
+    @Inject(SERVICE_WITH_INDEX) private serviceWithIndex: IServiceWithIndex[],
     private store: Store<any>,
   ) {
     this.listnerSubject = new BehaviorSubject<IWorkerMessage>(undefined);
@@ -29,6 +32,7 @@ export class BackGroundWorkerService {
 
   public start() {
     console.log('start');
+    this.productsService.loadProducts();
 
     if (typeof onmessage !== 'undefined' && typeof onmessage !== undefined) {
       onmessage = e => {
@@ -56,8 +60,6 @@ export class BackGroundWorkerService {
     } else {
       console.warn('Not a shared Worker');
     }
-
-    this.productsService.loadProducts();
   }
 
   public listen(): Observable<IWorkerMessage> {
@@ -81,8 +83,6 @@ export class BackGroundWorkerService {
     data: workerActions.WorkerActions,
     action: (message: IWorkerMessage) => void,
   ) {
-    console.log('processMessage', data);
-
     let subScriptionManager: SubScriptionManager;
 
     switch (data.action) {
@@ -107,17 +107,21 @@ export class BackGroundWorkerService {
       case 'execute': {
         const d = data as workerActions.ExecuteWorkerAction;
         subScriptionManager = new SubScriptionManager(d);
-        subScriptionManager.subscription = this.productsService.methods[d.key](
-          d.args,
-        )
-          // .pipe(take(1))
-          .subscribe(x => {
-            console.log('process executed:', x);
-            this.send({
-              reducer: subScriptionManager.key,
-              payload: x,
+
+        this.serviceWithIndex.forEach(s => {
+          if (s.methods[d.key]) {
+            subScriptionManager.subscription = s.methods[d.key](
+              d.args,
+            ).subscribe(x => {
+              // console.log('execute', subScriptionManager.key, x);
+              this.send({
+                reducer: subScriptionManager.key,
+                payload: x,
+              });
             });
-          });
+          }
+        });
+
         break;
       }
       case 'unsubscribe': {
