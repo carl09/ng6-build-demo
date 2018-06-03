@@ -1,4 +1,7 @@
 <div class="content">
+
+    <app-product-recent *ngIf="(productViewed$ | async)?.length" [productViewed]="productViewed$ | async"></app-product-recent>
+
     <div class="product-grid-container">
         <div *ngFor="let p of products$ | async">
             <div class="product-item-wrapper">

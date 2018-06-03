@@ -22,6 +22,8 @@ export class BackGroundWorkerService {
   private worker: Worker;
   private subs: SubScriptionManager[] = [];
 
+  private isSharedWorker = false;
+
   constructor(
     private productsService: ProductsWorkerService,
     @Inject(SERVICE_WITH_INDEX) private serviceWithIndex: IServiceWithIndex[],
@@ -46,6 +48,8 @@ export class BackGroundWorkerService {
     }
 
     if (typeof onconnect !== 'undefined' && typeof onconnect !== undefined) {
+      this.isSharedWorker = true;
+
       onconnect = c => {
         console.log('portCont', c.ports.length);
 
@@ -125,13 +129,15 @@ export class BackGroundWorkerService {
         break;
       }
       case 'unsubscribe': {
-        const d = data as workerActions.UnsubscribeWorkerAction;
-        let i = this.subs.length;
-        while (i--) {
-          if (this.subs[i].key === d.key) {
-            // console.log('unsub', d);
-            this.subs[i].subscription.unsubscribe();
-            this.subs.splice(i, 1);
+        if (!this.isSharedWorker) {
+          const d = data as workerActions.UnsubscribeWorkerAction;
+          let i = this.subs.length;
+          while (i--) {
+            if (this.subs[i].key === d.key) {
+              // console.log('unsub', d);
+              this.subs[i].subscription.unsubscribe();
+              this.subs.splice(i, 1);
+            }
           }
         }
       }

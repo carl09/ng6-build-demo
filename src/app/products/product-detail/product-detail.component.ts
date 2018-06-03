@@ -5,6 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import {
   CartAddAction,
   IProductSummary,
+  IProductViewed,
   ProductsService,
   StateProxyService,
 } from 'state';
@@ -16,6 +17,7 @@ import {
 })
 export class ProductDetailComponent implements OnInit {
   public product$: Observable<IProductSummary>;
+  public productViewed$: Observable<IProductViewed[]>;
 
   private code: string;
 
@@ -34,6 +36,8 @@ export class ProductDetailComponent implements OnInit {
         return this.productsService.getProductByCode(this.code);
       }),
     );
+
+    this.productViewed$ = this.productsService.getRecentProducts();
   }
 
   public addToCart() {

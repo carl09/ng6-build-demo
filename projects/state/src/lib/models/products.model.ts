@@ -13,3 +13,9 @@ export interface IProductSummary {
   price: number;
   currency: currencyTypes;
 }
+
+export interface IProductViewed {
+  code: string;
+  name: string;
+  img: string;
+}

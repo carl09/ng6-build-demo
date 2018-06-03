@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 import {
   ExecuteWorkerAction,
   ListenWorkerAction,
@@ -15,19 +16,38 @@ import { WorkerService } from './client/worker.service';
 export class StateProxyService {
   private subs: { [id: string]: BehaviorSubject<any> } = {};
 
+  private subWatcher: Subject<void> = new Subject();
+
   constructor(private workerService: WorkerService) {
     this.workerService.listen().subscribe(x => {
       if (x !== undefined && this.subs[x.reducer] !== undefined) {
-        Object.keys(this.subs).forEach(y => {
-          const sub = this.subs[y];
+        // Object.keys(this.subs).forEach(y => {
+        //   const sub = this.subs[y];
 
-          if (sub.observers.length === 1) {
-            sub.complete();
-            delete this.subs[y];
-          }
-        });
+        //   if (sub.observers.length === 1) {
+        //     sub.complete();
+        //     delete this.subs[y];
+        //   }
+        // });
+
+        // if (this.subs[x.reducer]) {
         this.subs[x.reducer].next(x.payload);
+
+        this.subWatcher.next();
+        // }
       }
+    });
+
+    this.subWatcher.pipe(debounce(() => timer(1000))).subscribe(() => {
+      Object.keys(this.subs).forEach(y => {
+        const sub = this.subs[y];
+
+        if (sub.observers.length === 1) {
+          sub.complete();
+          delete this.subs[y];
+          console.log(`Unscribing ${y}`);
+        }
+      });
     });
   }
 

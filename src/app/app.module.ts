@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -20,10 +21,10 @@ import { CartComponent } from './cart/cart.component';
 import { CounterComponent } from './counter/counter.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductRecentComponent } from './products/product-recent/product-recent.component';
 import { AppCurrencyPipe } from './shared/app-currency.pipe';
 import { LoginComponent } from './user/login/login.component';
 import { LogoffComponent } from './user/logoff/logoff.component';
-import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     LoginComponent,
     ProductListComponent,
     ProductDetailComponent,
+    ProductRecentComponent,
     CartComponent,
 
     AppCurrencyPipe,
@@ -53,7 +55,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatTableModule,
     CdkTableModule,
 
-    StateClientModule.forRoot(true),
+    StateClientModule.forRoot(false),
     BrowserAnimationsModule,
   ],
   providers: [],

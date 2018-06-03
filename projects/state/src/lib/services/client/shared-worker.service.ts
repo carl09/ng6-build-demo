@@ -20,7 +20,7 @@ export class WorkerSharedService extends WorkerService {
     this.worker = new SharedWorker(script, 'Reducer Worker');
 
     this.worker.port.addEventListener('message', message => {
-      console.log('message', message);
+      // console.log('message', message);
       this.listnerSubject.next(message.data);
     });
 

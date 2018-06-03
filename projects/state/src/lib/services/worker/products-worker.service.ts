@@ -4,7 +4,7 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { MonoTypeOperatorFunction, Observable, OperatorFunction } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { ProductsService } from '../../common/products.service';
-import { IProduct, IProductSummary, IUser } from '../../models';
+import { IProduct, IProductSummary, IProductViewed, IUser } from '../../models';
 import {
   convertCurrency,
   currencyTypes,
@@ -23,7 +23,6 @@ const selectProductsForDisplay: MemoizedSelector<
   IState,
   IProductSummary[]
 > = createSelector(
-  // selectUser,
   selectGetCurrency,
   selectProducts,
   (userCurrency: currencyTypes, products: IProduct[]) => {
@@ -46,6 +45,55 @@ const selectProductsForDisplay: MemoizedSelector<
   },
 );
 
+const selectRecent: MemoizedSelector<IState, string[]> = createSelector(
+  selectUser,
+  (user: IUser) => {
+    if (user && user.viewedProducts) {
+      return user.viewedProducts;
+    }
+
+    return [];
+  },
+);
+
+const selectProductsRecent: MemoizedSelector<
+  IState,
+  IProductViewed[]
+> = createSelector(
+  selectRecent,
+  selectProducts,
+  (viewedProducts: string[], products: IProduct[]) => {
+    const items: IProductViewed[] = [];
+
+    const itemAdded = {};
+
+    const productObj = {};
+
+    products.forEach(x => {
+      productObj[x.code] = x;
+    });
+
+    for (let index = viewedProducts.length; index >= 0; index--) {
+      const x = viewedProducts[index];
+      const p = productObj[x];
+      if (p && !itemAdded[x]) {
+        const i: IProductViewed = {
+          code: x,
+          name: p.name,
+          img: p.img,
+        };
+        items.push(i);
+        itemAdded[x] = true;
+      }
+      if (items.length > 3) {
+        break;
+      }
+    }
+
+    return items;
+  },
+);
+
 @Injectable()
 export class ProductsWorkerService extends ProductsService {
   constructor(private store: Store<IState>, private http: HttpClient) {
@@ -63,7 +111,6 @@ export class ProductsWorkerService extends ProductsService {
   }
 
   public getProductByCode(code: string): Observable<IProductSummary> {
-    // console.log('ProductsWorkerService.getProductByCode', code);
     return this.store.pipe(
       select(selectProductsForDisplay),
       map(x => {
@@ -83,5 +130,9 @@ export class ProductsWorkerService extends ProductsService {
 
   public getProducts(): Observable<IProductSummary[]> {
     return this.store.pipe(select(selectProductsForDisplay));
+  }
+
+  public getRecentProducts(): Observable<IProductViewed[]> {
+    return this.store.pipe(select(selectProductsRecent));
   }
 }

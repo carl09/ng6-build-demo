@@ -20,4 +20,5 @@ export {
   ICartSummary,
   IUser,
   IProductSummary,
+  IProductViewed,
 } from './lib/models/index';
