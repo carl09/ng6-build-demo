@@ -4,7 +4,6 @@ $cell-spcing: 20px;
 
 .product-grid-container {
   display: grid;
-  // grid-template-columns: minmax($min-cell, 300px) minmax($min-cell, 300px) minmax($min-cell, 300px) minmax($min-cell, 300px);
   grid-template-columns: minmax($min-cell, $max-cell);
   grid-gap: 10px;
   padding: 10px;
@@ -28,14 +27,22 @@ $cell-spcing: 20px;
 }
 .product-grid-container > div {
   text-align: center;
-  padding: 20px 0;
   text-align: left;
+  border-width: 1px;
+  border-style: solid;
+}
+.product-item-wrapper {
+  padding: 10px;
 }
 .product-heading {
   font-size: 16px;
+  padding-left: 10px;
+  text-decoration: none;
 }
 .product-price {
   font-size: 22px;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 .product-image-container {
   width: 100%;

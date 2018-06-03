@@ -1,6 +1,6 @@
 <div class="content">
-
-    <table class="mat-table mat-elevation-z4">
+    <div class="mat-title">Cart</div>
+    <table *ngIf="summary$" class="mat-table mat-elevation-z4">
         <thead>
             <tr class="mat-header-row">
                 <th class="mat-header-cell">Name</th>
@@ -11,12 +11,18 @@
         </thead>
         <tbody>
             <tr class="mat-row" *ngFor="let s of summary$ | async">
-                <td class="mat-cell">{{ s.name }}</td>
+                <td class="mat-cell"><a [routerLink]="['/products', s.productCode]" class="cart-product-name">{{ s.name }}</a></td>
                 <td class="mat-cell">{{ s.itemPrice | appCurrency:s.currency }}</td>
-                <td class="mat-cell">{{ s.qty }}</td>
+                <td class="mat-cell"><button (click)="remove(s.productCode)" class="cart-remove" mat-button color="accent">-</button> {{ s.qty }} <button (click)="add(s.productCode)" class="cart-add" mat-button color="accent">+</button></td>
                 <td class="mat-cell">{{ s.totalPrice | appCurrency:s.currency }}</td>
             </tr>
         </tbody>
     </table>
+
+    <div style="display: none">
+    <mat-table>
+            <mat-header-row *cdkHeaderRowDef="[]"></mat-header-row>
+        </mat-table>
+    </div>
 
 </div>

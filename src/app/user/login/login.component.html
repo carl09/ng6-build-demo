@@ -1,7 +1,5 @@
-<div class="content">
-
+<div class="content-flex">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
         <mat-card class="example-card" flex="50">
             <mat-card-header>
                 <mat-card-title>Login</mat-card-title>
@@ -12,10 +10,8 @@
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions>
-                <button type="submit" [disabled]="loginForm.pristine" mat-button color="primary">Login</button>
+                <button type="submit" [disabled]="loginForm.pristine" mat-raised-button color="primary">Login</button>
             </mat-card-actions>
         </mat-card>
     </form>
-
-
 </div>

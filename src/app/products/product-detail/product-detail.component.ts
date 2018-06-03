@@ -31,8 +31,6 @@ export class ProductDetailComponent implements OnInit {
       switchMap((params: ParamMap) => {
         this.code = params.get('code');
 
-        console.log('ProductDetailComponent', this.code);
-
         return this.productsService.getProductByCode(this.code);
       }),
     );

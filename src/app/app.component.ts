@@ -34,13 +34,13 @@ export class AppComponent implements OnInit {
     this.cartTotal$ = this.cartService.getCartTotal();
 
     this.userService.getCurrency().subscribe(x => {
-      console.log('getCurrency', x);
+      // console.log('getCurrency', x);
       this.selected = x;
     });
   }
 
   public onSelectionChange(event: MatSelectChange) {
-    console.log('onSelectionChange', event);
+    // console.log('onSelectionChange', event);
     this.store.dispatch(
       new SetCurrencyAction({
         currency: event.value,

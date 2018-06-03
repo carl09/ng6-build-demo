@@ -7,6 +7,7 @@ import {
   MatInputModule,
   MatMenuModule,
   MatSelectModule,
+  MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,6 +23,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { AppCurrencyPipe } from './shared/app-currency.pipe';
 import { LoginComponent } from './user/login/login.component';
 import { LogoffComponent } from './user/logoff/logoff.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,9 @@ import { LogoffComponent } from './user/logoff/logoff.component';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+
+    MatTableModule,
+    CdkTableModule,
 
     StateClientModule.forRoot(true),
     BrowserAnimationsModule,

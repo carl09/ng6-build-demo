@@ -129,7 +129,7 @@ export class BackGroundWorkerService {
         let i = this.subs.length;
         while (i--) {
           if (this.subs[i].key === d.key) {
-            console.log('unsub', d);
+            // console.log('unsub', d);
             this.subs[i].subscription.unsubscribe();
             this.subs.splice(i, 1);
           }

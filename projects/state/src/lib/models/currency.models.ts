@@ -3,7 +3,7 @@ export const DEFAULT_CURRENCY = 'AUD';
 export type currencyTypes = 'AUD' | 'USD' | 'EUR' | 'MYR';
 
 export const convertCurrency = (currency: currencyTypes, value: number) => {
-  console.log('convertCurrency', currency, value);
+  // console.log('convertCurrency', currency, value);
   switch (currency) {
     case 'AUD':
       return value;

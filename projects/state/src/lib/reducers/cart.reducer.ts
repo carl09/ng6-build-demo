@@ -10,6 +10,8 @@ export const cartReducer: ActionReducer<ICart> = (
   switch (action.type) {
     case reducerActions.CART_ADD:
       return addProduct(state, action.payload);
+    case reducerActions.CART_REMOVE:
+      return removeProduct(state, action.payload);
     default:
       return state;
   }
@@ -39,6 +41,27 @@ function addProduct(
       qty: action.qty,
     });
   }
+  return {
+    items,
+  };
+}
+
+function removeProduct(
+  state: ICart,
+  action: reducerActions.ICartAddActionPayload,
+): ICart {
+  const items = [];
+  state.items.forEach(x => {
+    if (x.productCode === action.productCode) {
+      items.push({
+        productCode: x.productCode,
+        qty: x.qty - action.qty,
+      });
+    } else {
+      items.push(x);
+    }
+  });
+
   return {
     items,
   };
