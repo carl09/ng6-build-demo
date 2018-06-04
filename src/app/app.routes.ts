@@ -17,6 +17,6 @@ export const appRoutes: Routes = [
 
   { path: 'cart', component: CartComponent },
 
-  { path: '', redirectTo: '/counter', pathMatch: 'full' },
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
   // { path: '**', component: CounterComponent },
 ];

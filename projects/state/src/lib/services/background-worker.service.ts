@@ -40,7 +40,7 @@ export class BackGroundWorkerService {
       onmessage = e => {
         if (e.data) {
           const data: workerActions.WorkerActions = e.data;
-          this.processMessage(data, this.send);
+          this.processMessage(data);
         }
       };
     } else {
@@ -57,7 +57,7 @@ export class BackGroundWorkerService {
         c.ports[0].onmessage = e => {
           if (e.data) {
             const data: workerActions.WorkerActions = e.data;
-            this.processMessage(data, this.send);
+            this.processMessage(data);
           }
         };
       };
@@ -71,6 +71,7 @@ export class BackGroundWorkerService {
   }
 
   public send(message: IWorkerMessage) {
+    console.log('Sending Message to Client:', message);
     if (this.ports && this.ports.length) {
       this.ports.forEach(p => p.postMessage(message));
     } else {
@@ -83,10 +84,8 @@ export class BackGroundWorkerService {
     this.worker = undefined;
   }
 
-  private processMessage(
-    data: workerActions.WorkerActions,
-    action: (message: IWorkerMessage) => void,
-  ) {
+  private processMessage(data: workerActions.WorkerActions) {
+    console.log('Received Message from Client:', data);
     let subScriptionManager: SubScriptionManager;
 
     switch (data.action) {
