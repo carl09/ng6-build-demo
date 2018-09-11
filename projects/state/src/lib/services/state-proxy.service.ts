@@ -68,6 +68,7 @@ export class StateProxyService {
   public execute<T>(
     method: string,
     uniqueRef: string,
+    // tslint:disable-next-line:trailing-comma
     ...args: any[]
   ): Observable<T> {
     const action = new ExecuteWorkerAction(method, uniqueRef, args);
