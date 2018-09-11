@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IWorkerAction, IWorkerMessage } from '../../models';
+import { IWorkerMessage } from '../../models';
 import { WorkerActions } from '../../models/worker-action.model';
 import { WorkerService } from './worker.service';
 
@@ -19,7 +19,6 @@ export class WebWorkerService extends WorkerService {
     this.worker = new Worker(script);
 
     this.worker.addEventListener('message', message => {
-      // console.log('message', message);
       this.listnerSubject.next(message.data);
     });
   }
@@ -30,7 +29,6 @@ export class WebWorkerService extends WorkerService {
 
   public send(message: WorkerActions) {
     if (this.worker) {
-      // console.log('WebWorkerService.send', message);
       this.worker.postMessage(message);
     }
   }
